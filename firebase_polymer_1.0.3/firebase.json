@@ -1,0 +1,9 @@
+{
+  "firebase": "wtm-x",
+  "public": "app",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
