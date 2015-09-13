@@ -26,11 +26,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     }
     .demo-card-square.mdl-card {
-      width: 280px;
+      width: 240px;
       height: 320px;
     }
     .demo-card-square > .mdl-card__title {
-      color: #000;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 900;
     }
     .circle-image {
       border-radius: 50%;
@@ -74,10 +76,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     data="{{users}}">
   </firebase-collection>
 
-  <!-- 
+
+  <!-- Display user image as background image -->
+  <div class="mdl-grid">
+  <template is="dom-repeat" items="[[users]]">
+    <div class="mdl-card demo-card-square mdl-cell mdl-cell--4-col mdl-shadow--2dp">
+      <!-- This does not display image -->
+      <div class="mdl-card__title mdl-card--expand" style={{computeStyle(item.0.imageUrl)}}>
+        <h2 class="mdl-card__title-text">[[item.0.displayName]]</h2>
+        <!-- <img src="[[item.0.imageUrl]]" class="circle-image"</> -->
+      </div>
+      <div class="mdl-card__supporting-text">
+        <span>[[item.0.occupation]]</span>
+      </div>
+      <div class="mdl-card__actions mdl-card--border mdl-color--teal-50">
+        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+          View Profile
+        </a>
+      </div>
+    </div>
+  </template> 
+  </div>
+
+
+  <!--
   <template is="dom-repeat" items="[[users]]">
     <div class="demo-card-square mdl-card mdl-shadow--2dp">
-      <!-- This does not display image
+      <!-- This does not display image 
       <div class="mdl-card__title mdl-card--expand"> style="background:url(<span>[[item.0.imageUrl]]</span>) center no-repeat #46B6AC">  
         <h2 class="mdl-card__title-text">[[item.0.displayName]]</h2>
         <img src="[[item.0.imageUrl]]" class="circle-image"</> 
@@ -95,8 +120,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </template> 
   -->
 
-
   <!-- Example from http://codepen.io/mdlhut/pen/PqgmqQ -->
+  <!-- 
   <div class="mdl-grid">
   <template is="dom-repeat" items="[[users]]">
   <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--2dp">
@@ -113,6 +138,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </div>
   </template>
   </div>
+-->
   
 </template>
 
@@ -125,7 +151,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           users: {
             type: Array,
           }
+        },
+
+        computeStyle: function(imageUrl) {
+          var bkgdImageURL = "url(" + imageUrl + ");";
+          var style = "background-image: "+ bkgdImageURL + " background-size: cover; background-repeat: no-repeat; background-position: center;";
+          console.log("Style: " + style);
+          return style;
         }
+
       }); //End of Polymer
     })();
   </script>
